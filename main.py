@@ -20,8 +20,9 @@ def main():
 
 @app.route("/text", methods=['GET', 'POST'])
 def text():
-    request_body = request.args.get("Body")
-    print(request_body)
+    print(is_silent)
+    print(is_silent)
+    print(is_silent)
     if is_silent:
         resp = Response()
         resp.message("Will is busy right now.")
@@ -29,7 +30,8 @@ def text():
         return str(resp)
     else:
         print("Not busy right not, let the sms go through")
-        txt = request_body
+        request_body = request.args.get("Body")
+        print(request_body)
         msg = client.messages.create(
             to=user_num,
             from_=TWILIO_NUMBER,
@@ -39,14 +41,14 @@ def text():
 
 @app.route("/silent_on", methods=['GET', 'POST'])
 def silent_on():
-    print("silent_on")
     is_silent = True
+    print("Silent is now %s", is_silent)
     return "Silent mode on."
 
 @app.route("/silent_off", methods=['GET', 'POST'])
 def silent_off():
-    print("silent_off")
     is_silent = False
+    print("Silent is now %s", is_silent)
     return "Silent mode off."
 
 if __name__ == "__main__":
