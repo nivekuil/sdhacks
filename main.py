@@ -21,9 +21,11 @@ def main():
 @app.route("/text", methods=['GET', 'POST'])
 def text():
     request_body = request.args.get("body")
+    print(request_body)
     if is_silent:
         resp = Response()
         resp.message("Will is busy right now.")
+        print("Tried to contact someone in silent mode.")
         return str(resp)
     else:
         txt = request_body
