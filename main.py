@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 client = TwilioRestClient(TWILIO_SID, TWILIO_TOKEN)
 
-is_silent = False
+app.config['is_silent'] = False
 
 user_num = "+18322820708"
 
@@ -20,10 +20,7 @@ def main():
 
 @app.route("/text", methods=['GET', 'POST'])
 def text():
-    print("Silent status is ", is_silent)
-    print("Silent status is ", is_silent)
-    print("Silent status is ", is_silent)
-    print("Silent status is ", is_silent)
+    is_silent = app.config['is_silent']
     if is_silent:
         resp = Response()
         resp.message("Will is busy right now.")
@@ -42,14 +39,14 @@ def text():
 
 @app.route("/silent_on", methods=['GET', 'POST'])
 def silent_on():
-    is_silent = True
-    print("Silent is now %s", is_silent)
+    app.config[is_silent] = True
+    print("Silent is now ", is_silent)
     return "Silent mode on."
 
 @app.route("/silent_off", methods=['GET', 'POST'])
 def silent_off():
-    is_silent = False
-    print("Silent is now %s", is_silent)
+    app.config[is_silent] = False
+    print("Silent is now ", is_silent)
     return "Silent mode off."
 
 if __name__ == "__main__":
