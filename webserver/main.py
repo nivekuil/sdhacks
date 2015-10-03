@@ -4,13 +4,13 @@ from twilio.twiml import Response
 
 ### Play nice with pythonanywhere
 import os
-from urlparse import urlparse
+import urllib.parse
 
 from twilio.rest.resources import Connection
 from twilio.rest.resources.connection import PROXY_TYPE_HTTP
 
 proxy_url = os.environ.get("http_proxy")
-host, port = urlparse(proxy_url).netloc.split(":")
+host, port = urllib.parse(proxy_url).netloc.split(":")
 Connection.set_proxy_info(host, int(port), proxy_type=PROXY_TYPE_HTTP)
 ###
 
