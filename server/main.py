@@ -31,11 +31,11 @@ def text():
         #send sms
 
 @app.route("/silent_on", methods=['GET', 'POST'])
-def text():
+def silent_on():
     silent = True
 
 @app.route("/silent_off", methods=['GET', 'POST'])
-def text():
+def silent_off():
     silent = False
 
 if __name__ == "__main__":
