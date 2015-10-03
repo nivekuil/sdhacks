@@ -37,13 +37,13 @@ def text():
 @app.route("/silent_on", methods=['GET', 'POST'])
 def silent_on():
     print("silent_on")
-    silent = True
+    is_silent = True
     return "Silent mode on."
 
 @app.route("/silent_off", methods=['GET', 'POST'])
 def silent_off():
     print("silent_off")
-    silent = False
+    is_silent = False
     return "Silent mode off."
 
 if __name__ == "__main__":
