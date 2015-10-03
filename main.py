@@ -20,9 +20,10 @@ def main():
 
 @app.route("/text", methods=['GET', 'POST'])
 def text():
-    print(is_silent)
-    print(is_silent)
-    print(is_silent)
+    print("Silent status is ", is_silent)
+    print("Silent status is ", is_silent)
+    print("Silent status is ", is_silent)
+    print("Silent status is ", is_silent)
     if is_silent:
         resp = Response()
         resp.message("Will is busy right now.")
