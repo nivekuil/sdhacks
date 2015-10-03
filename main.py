@@ -28,6 +28,7 @@ def text():
         print("Tried to contact someone in silent mode.")
         return str(resp)
     else:
+        print("Not busy right not, let the sms go through")
         txt = request_body
         msg = client.messages.create(
             to=user_num,
