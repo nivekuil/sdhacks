@@ -20,7 +20,7 @@ def main():
 
 @app.route("/text", methods=['GET', 'POST'])
 def text():
-    request_body = request.args.get("body")
+    request_body = request.args.get("Body")
     print(request_body)
     if is_silent:
         resp = Response()
