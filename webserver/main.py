@@ -2,6 +2,18 @@ from flask import Flask, request
 from twilio.rest import TwilioRestClient
 from twilio.twiml import Response
 
+### Play nice with pythonanywhere
+import os
+from urlparse import urlparse
+
+from twilio.rest.resources import Connection
+from twilio.rest.resources.connection import PROXY_TYPE_HTTP
+
+proxy_url = os.environ.get("http_proxy")
+host, port = urlparse(proxy_url).netloc.split(":")
+Connection.set_proxy_info(host, int(port), proxy_type=PROXY_TYPE_HTTP)
+###
+
 TWILIO_SID = "AC9867a6902e33cabe8d4085354077882a"
 TWILIO_TOKEN = "5298d24f86066d604ce7c690f29b7595"
 TWILIO_NUMBER = "+13238922618"
