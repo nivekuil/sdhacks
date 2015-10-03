@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request
+from twilio.rest import TwilionRestClient
 from twilio.twiml import Response
 
 TWILIO_SID = "AC9867a6902e33cabe8d4085354077882a"
@@ -7,11 +8,35 @@ TWILIO_NUMBER = "+13238922618"
 
 app = Flask(__name__)
 
+client = TwilioRestClient(TWILIO_SID, TWILIO_TOKEN)
+
+is_silent = False
+
+user_num = "+18322820708"
+
 @app.route("/text", methods=['GET', 'POST'])
 def text():
-    resp = Response()
-    resp.message("Will is busy right now.")
-    return str(resp)
+    request_body = request.args.get("body")
+    if is_silent:
+        resp = Response()
+        resp.message("Will is busy right now.")
+        return str(resp)
+    else:
+        txt = request_body
+        msg = client.messasges.create(
+            to=user_num,
+            from_=TWILIO_NUMBER,
+            body=request_body,
+        )
+        #send sms
+
+@app.route("/silent_on", methods=['GET', 'POST'])
+def text():
+    silent = True
+
+@app.route("/silent_off", methods=['GET', 'POST'])
+def text():
+    silent = False
 
 if __name__ == "__main__":
     app.run(debug=True)
