@@ -23,7 +23,7 @@ def text():
         return str(resp)
     else:
         txt = request_body
-        msg = client.messasges.create(
+        msg = client.messages.create(
             to=user_num,
             from_=TWILIO_NUMBER,
             body=request_body,
@@ -32,10 +32,12 @@ def text():
 
 @app.route("/silent_on", methods=['GET', 'POST'])
 def silent_on():
+    print("silent_on")
     silent = True
 
 @app.route("/silent_off", methods=['GET', 'POST'])
 def silent_off():
+    print("silent_off")
     silent = False
 
 if __name__ == "__main__":
