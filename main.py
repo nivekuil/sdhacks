@@ -32,17 +32,19 @@ def text():
             from_=TWILIO_NUMBER,
             body=request_body,
         )
-        #send sms
+        return msg.sid
 
 @app.route("/silent_on", methods=['GET', 'POST'])
 def silent_on():
     print("silent_on")
     silent = True
+    return "Silent mode on."
 
 @app.route("/silent_off", methods=['GET', 'POST'])
 def silent_off():
     print("silent_off")
     silent = False
+    return "Silent mode off."
 
 if __name__ == "__main__":
     app.run(debug=True)
