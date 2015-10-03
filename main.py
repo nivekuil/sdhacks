@@ -16,7 +16,10 @@ user_num = "+18322820708"
 
 @app.route("/")
 def main():
-    return "Hello"
+    if app.config['is_silent']:
+        return "silent"
+    else:
+        return "not silent"
 
 @app.route("/text", methods=['GET', 'POST'])
 def text():
