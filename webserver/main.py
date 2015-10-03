@@ -14,6 +14,10 @@ is_silent = False
 
 user_num = "+18322820708"
 
+@app.route("/")
+def main():
+    return "Hello"
+
 @app.route("/text", methods=['GET', 'POST'])
 def text():
     request_body = request.args.get("body")
