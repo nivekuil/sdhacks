@@ -9,19 +9,20 @@ var silentStatus;
 var message;
 
 app.set('port', process.env.PORT || 3000);
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', function(req, res) {
-  var toSend = JSON.stringify({ 
+  res.render('index.html');
+});
+
+app.get('/poll', function(req, res) {
+  res.status(200).send({
     silentStatus: silentStatus,
     b0: message[1],
     b1: message[2],
     b3: message[3],
     b4: message[4]
-  });
-
-  toSend = JSON.parse(toSend);
-  console.log("JSON object sent: " + toSend);
-  res.status(200).send(toSend);
+  });    
 });
 
 /*
@@ -41,20 +42,6 @@ var optionsOff = {
 var sumAvg = [];
 var url = "https://sdhacks.herokuapp.com/";
 var counter = 0;
-
-var httpAsyncGetOn = https.get(url + "silent_on");
-var httpAsyncGetOff = https.get(url + "silent_off");
-
-var httpAsyncGet = function (url, callback) {
-  var xhmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function () {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-      callback(xmlHttp.responseText);
-    }
-  }
-  xmlHttp.open("GET", url, true); //for Async
-  xmlHttp.send(1); //send whatever
-}
 
 var getAverage = function (msg, error) {
   if (error) {
@@ -103,14 +90,14 @@ var sumTenAverage = function (avg, error) {
       if (tenSum > 10 && counter > 100) {
         console.log("silent_on, cannot recieve text");
         https.get(url + "silent_on");
-        silentStatus = "silent_on";
+        silentStatus = true;
         counter = 0;
       }
 
       if (tenSum <= 10 && counter > 100) {
         console.log("silent_off, can recieve text");
         https.get(url + "silent_off");
-        silentStatus = "silent_off";
+        silentStatus = false;
         counter = 0;
       }
     }
