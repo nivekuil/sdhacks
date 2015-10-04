@@ -31,9 +31,8 @@ def text():
     request_body = request.form["Body"]
 
     print("Wrong here")
-    msg_body = "Message from " + \
-    request.form["From"] + " at " + \
-    + datetime.now().strftime('%H:%M:%S') \
+    msg_body = "Message from " + request.form["From"] + " at "
+    + datetime.now().strftime('%H:%M:%S')
     + ": " + request_body
     print("OR wrong here?")
 
