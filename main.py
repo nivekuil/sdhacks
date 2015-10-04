@@ -34,7 +34,7 @@ def text():
         resp.message("Will is busy right now.\
         Your messages will be sent when he is available.")
         print("Tried to contact someone in silent mode.")
-        app.config['message_queue'].append(response_body)
+        app.config['message_queue'].append(request_body)
         return str(resp)
 
     else:
