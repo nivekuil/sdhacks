@@ -1,5 +1,29 @@
-var osc = require('node-osc');
-var https = require('https');
+var osc = require('node-osc'),
+    https = require('https'),
+    http = require('http'),
+    express = require('express'),
+    path = require('path');
+
+var app = express();
+var silentStatus;
+var message;
+
+app.set('port', process.env.PORT || 3000);
+//app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', function(req, res) {
+  var toSend = JSON.stringify({ 
+    silentStatus: silentStatus,
+    b0: message[1],
+    b1: message[2],
+    b3: message[3],
+    b4: message[4]
+  });
+
+  toSend = JSON.parse(toSend);
+  console.log("JSON object sent: " + toSend);
+  res.status(200).send(toSend);
+});
+
 /*
 var optionsOn = {
   hostname: 'sdhacks.herokuapp.com/silent_on',
@@ -79,12 +103,14 @@ var sumTenAverage = function (avg, error) {
       if (tenSum > 10 && counter > 100) {
         console.log("silent_on, cannot recieve text");
         https.get(url + "silent_on");
+        silentStatus = "silent_on";
         counter = 0;
       }
 
       if (tenSum <= 10 && counter > 100) {
         console.log("silent_off, can recieve text");
         https.get(url + "silent_off");
+        silentStatus = "silent_off";
         counter = 0;
       }
     }
@@ -96,5 +122,10 @@ oscServer.on("message", function (msg, rinfo) {
   //console.log("TUIO message:");
   //console.log(msg);
   counter++;
+  message = msg;
   getAverage(msg);
+});
+
+http.createServer(app).listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + app.get('port'));
 });
