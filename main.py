@@ -14,7 +14,7 @@ app.config['is_silent'] = False
 
 user_num = "+18322820708"
 
-message_queue = []
+app.config['message_queue'] = []
 
 @app.route("/")
 def main():
@@ -33,7 +33,7 @@ def text():
         resp.message("Will is busy right now.\
         Your messages will be sent when he is available.")
         print("Tried to contact someone in silent mode.")
-        message_queue.append(response_body)
+        app.config['message_queue'].append(response_body)
         return str(resp)
 
     else:
@@ -56,7 +56,7 @@ def silent_on():
 def silent_off():
     app.config['is_silent'] = False
     print("Silent is now ", app.config['is_silent'])
-    for message in message_queue:
+    for message in app.config['message_queue']:
         client.messages.create(to=user_num,
                                from_=TWILIO_NUMBER,
                                body=message,)
