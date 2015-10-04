@@ -36,7 +36,7 @@ def text():
         app.config['message_queue'].append("Message from " +
                                            request.form["From"] + " at " +
                                            + datetime.now().strftime('%H:%M:%S')
-                                           + request_body)
+                                           + " : " + request_body)
         return str(resp)
 
     else:
@@ -60,6 +60,7 @@ def silent_off():
     app.config['is_silent'] = False
     print("Silent is now ", app.config['is_silent'])
     for message in app.config['message_queue']:
+        print("Sending message " + message)
         client.messages.create(to=user_num,
                                from_=TWILIO_NUMBER,
                                body=message,)
