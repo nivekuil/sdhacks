@@ -14,6 +14,8 @@ app.config['is_silent'] = False
 
 user_num = "+18322820708"
 
+message_queue = []
+
 @app.route("/")
 def main():
     if app.config['is_silent']:
@@ -24,14 +26,17 @@ def main():
 @app.route("/text", methods=['GET', 'POST'])
 def text():
     is_silent = app.config['is_silent']
+    request_body = request.args.get("Body")
+
     if app.config['is_silent']:
         resp = Response()
         resp.message("Will is busy right now.")
         print("Tried to contact someone in silent mode.")
+        message_queue.append(response_body)
         return str(resp)
+
     else:
         print("Not busy right not, let the sms go through")
-        request_body = request.args.get("Body")
         print(request_body)
         msg = client.messages.create(
             to=user_num,
@@ -50,6 +55,10 @@ def silent_on():
 def silent_off():
     app.config['is_silent'] = False
     print("Silent is now ", app.config['is_silent'])
+    for message in message_queue:
+        client.messages.create(to=user_num,
+                               from_=TWILIO_NUMBER,
+                               body=message,)
     return "Silent mode off."
 
 if __name__ == "__main__":
