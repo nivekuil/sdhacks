@@ -31,9 +31,10 @@ def text():
     request_body = request.form["Body"]
 
     print("Wrong here")
+    print( request.form["From"] )
+    print(datetime.now().strftime('%H:%M:%S'))
     msg_body = "Message from " + request.form["From"] + " at "
-    + datetime.now().strftime('%H:%M:%S')
-    + ": " + request_body
+    + datetime.now().strftime('%H:%M:%S') + ": " + request_body
     print("OR wrong here?")
 
     if app.config['is_silent']:
