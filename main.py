@@ -27,16 +27,17 @@ def main():
 @app.route("/text", methods=['GET', 'POST'])
 def text():
     request_body = request.form["Body"]
+    msg_body = "Message from " + \
+    request.form["From"] + " at " + \
+    + datetime.now().strftime('%H:%M:%S') \
+    + " : " + request_body
 
     if app.config['is_silent']:
         resp = Response()
         resp.message("Will is busy right now. \
         Your messages will be sent when he is available.")
         print("Tried to contact someone in silent mode.")
-        app.config['message_queue'].append("Message from " +
-                                           request.form["From"] + " at " +
-                                           + datetime.now().strftime('%H:%M:%S')
-                                           + " : " + request_body)
+        app.config['message_queue'].append(msg_body);
         return str(resp)
 
     else:
@@ -45,7 +46,7 @@ def text():
         msg = client.messages.create(
             to=user_num,
             from_=TWILIO_NUMBER,
-            body=request_body,
+            body=msg_body,
         )
         return msg.sid
 
