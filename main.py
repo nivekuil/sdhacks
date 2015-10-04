@@ -18,6 +18,7 @@ app.config['message_queue'] = []
 
 @app.route("/")
 def main():
+    print(app.config)
     if app.config['is_silent']:
         return "silent"
     else:
