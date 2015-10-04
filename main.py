@@ -24,7 +24,7 @@ def main():
 @app.route("/text", methods=['GET', 'POST'])
 def text():
     is_silent = app.config['is_silent']
-    if is_silent:
+    if app.config['is_silent']:
         resp = Response()
         resp.message("Will is busy right now.")
         print("Tried to contact someone in silent mode.")
