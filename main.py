@@ -1,6 +1,8 @@
 from flask import Flask, request
 from twilio.rest import TwilioRestClient
 from twilio.twiml import Response
+from datetime import datetime
+
 
 TWILIO_SID = "AC9867a6902e33cabe8d4085354077882a"
 TWILIO_TOKEN = "5298d24f86066d604ce7c690f29b7595"
@@ -30,7 +32,7 @@ def text():
     msg_body = "Message from " + \
     request.form["From"] + " at " + \
     + datetime.now().strftime('%H:%M:%S') \
-    + " : " + request_body
+    + ": " + request_body
 
     if app.config['is_silent']:
         resp = Response()
@@ -42,7 +44,7 @@ def text():
 
     else:
         print("Not busy right not, let the sms go through")
-        print(request_body)
+        print(msg_body)
         msg = client.messages.create(
             to=user_num,
             from_=TWILIO_NUMBER,
