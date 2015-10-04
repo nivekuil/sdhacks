@@ -59,6 +59,7 @@ def silent_off():
         client.messages.create(to=user_num,
                                from_=TWILIO_NUMBER,
                                body=message,)
+        message.pop(0)
     return "Silent mode off."
 
 if __name__ == "__main__":
