@@ -26,12 +26,11 @@ def main():
 
 @app.route("/text", methods=['GET', 'POST'])
 def text():
-    is_silent = app.config['is_silent']
-    request_body = request.args.get("Body")
+    request_body = request.form["Body"]
 
     if app.config['is_silent']:
         resp = Response()
-        resp.message("Will is busy right now.\
+        resp.message("Will is busy right now. \
         Your messages will be sent when he is available.")
         print("Tried to contact someone in silent mode.")
         app.config['message_queue'].append(request_body)
