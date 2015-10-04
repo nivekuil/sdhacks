@@ -25,20 +25,6 @@ app.get('/poll', function(req, res) {
   });    
 });
 
-/*
-var optionsOn = {
-  hostname: 'sdhacks.herokuapp.com/silent_on',
-  port: 80,
-  method: 'GET'
-};
-
-var optionsOff = {
-  hostname: 'sdhacks.herokuapp.com/silent_off',
-  port: 80,
-  method: 'GET'
-};
-*/
-
 var sumAvg = [];
 var url = "https://sdhacks.herokuapp.com/";
 var counter = 0;
@@ -106,8 +92,6 @@ var sumTenAverage = function (avg, error) {
 
 var oscServer = new osc.Server(3334, '0.0.0.0');
 oscServer.on("message", function (msg, rinfo) {
-  //console.log("TUIO message:");
-  //console.log(msg);
   counter++;
   message = msg;
   getAverage(msg);
