@@ -1,4 +1,6 @@
 SD Hacks project with the Muse headband.
 
+Project Information, Technologies, and more here: http://devpost.com/software/zen-ypel53
+
 * Challenges
 Mobile platforms don't allow apps to toggle airplane mode, so the only way we can get this effect is by going through a web server that uses Twilio to act as a middleman between the texter and the textee.
